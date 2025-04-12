@@ -7,6 +7,8 @@ import {
   orderBy,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+const username = prompt("What should we call you by..");
+
 // Get references
 const chatBox = document.getElementById("chat-box");
 const messageInput = document.getElementById("message-input");
@@ -21,6 +23,7 @@ window.sendMessage = async function () {
   await addDoc(collection(db, "messages"), {
     text: message,
     uid: user.uid,
+    Username: username,
     timestamp: new Date(),
   });
 
@@ -38,9 +41,9 @@ const loadMessages = () => {
       const messageDiv = document.createElement("div");
       messageDiv.classList.add(
         "message",
-        msg.uid === auth.currentUser?.uid ? "sent" : "received"
+        msg.uid === auth.currentUser.uid ? "sent" : "received"
       );
-      messageDiv.innerText = msg.text;
+      messageDiv.innerText = `${msg.text} :${msg.Username}`;
       chatBox.appendChild(messageDiv);
     });
 

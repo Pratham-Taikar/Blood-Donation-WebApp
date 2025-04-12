@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: white;
+            /* White background */
+            border-bottom: 2px solid red;
+            /* Red border at the bottom */
+            overflow: hidden;
+            /* Clear floats */
+            display: flex;
+            /* Use flexbox for layout */
+            align-items: center;
+            /* Center items vertically */
+            padding: 10px 20px;
+            /* Padding for the navbar */
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            /* Center logo and name vertically */
+            margin-right: auto;
+            /* Push links to the right */
+        }
+
+        .navbar .logo img {
+            height: 60px;
+            /* Adjust logo height */
+            margin-right: 10px;
+            /* Space between logo and name */
+        }
+
+        .navbar .logo h1 {
+            font-size: 50px;
+            /* Font size for the name */
+            color: red;
+            /* Red color for the name */
+            margin: 0;
+            /* Remove default margin */
+            font-family: oswald;
+            /* Font for the name */
+        }
+
+        .navbar a {
+            color: rgb(21, 18, 18);
+            /* Red text color */
+            text-align: center;
+            /* Center text */
+            padding: 14px 16px;
+            /* Padding */
+            text-decoration: none;
+            /* Remove underline */
+            transition: background-color 0.3s;
+            /* Smooth transition for hover */
+            text-decoration: bold;
+            /* Bold text */
+            font-family: Ubuntu;
+
+        }
+
+        .navbar a:hover {
+            color: red;
+        }
+
+        .navbar a {
+            color: rgb(21, 18, 18);
+            /* Text color */
+            text-align: center;
+            /* Center text */
+            padding: 14px 16px;
+            /* Padding */
+            text-decoration: none;
+            /* Remove underline */
+            font-family: Ubuntu;
+            /* Font family */
+            position: relative;
+            /* Position for pseudo-element */
+            transition: color 0.3s;
+            /* Smooth transition for text color */
+        }
+
+        .navbar a::after {
+            content: '';
+            /* Empty content for the underline */
+            position: absolute;
+            /* Position relative to the link */
+            left: 0;
+            /* Start from the left */
+            bottom: 0;
+            /* Position at the bottom */
+            width: 0;
+            /* Start with no width */
+            height: 2px;
+            /* Thickness of the underline */
+            background-color: red;
+            /* Color of the underline */
+            transition: width 0.5s ease-in;
+            /* Smooth transition for width */
+        }
+
+        .navbar a:hover {
+            color: red;
+            /* Change text color on hover */
+        }
+
+        .navbar a:hover::after {
+            width: 100%;
+            /* Expand the underline to full width */
+
+        }
+
+
+        .hero {
+            position: relative;
+            /* Position relative for video */
+            height: 100vh;
+            /* Full viewport height */
+            display: flex;
+            /* Use flexbox for centering */
+            flex-direction: column;
+            /* Stack items vertically */
+            justify-content: center;
+            /* Center items vertically */
+            align-items: center;
+            /* Center items horizontally */
+            text-align: center;
+            /* Center text */
+            color: white;
+            /* White text color */
+            padding: 20px;
+            /* Padding */
+            overflow: hidden;
+            /* Hide overflow */
+        }
+
+        .hero video {
+            position: absolute;
+            /* Position absolute for video */
+            top: 50%;
+            /* Center video vertically */
+            left: 50%;
+            /* Center video horizontally */
+            min-width: 100%;
+            /* Cover the entire section */
+            min-height: 100%;
+            /* Cover the entire section */
+            width: auto;
+            /* Maintain aspect ratio */
+            height: auto;
+            /* Maintain aspect ratio */
+            z-index: 1;
+            /* Ensure video is behind text */
+            transform: translate(-50%, -50%);
+            /* Center video */
+            object-fit: cover;
+            /* Cover the section */
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            /* Font size for the heading */
+            margin: 0;
+            /* Remove default margin */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            /* Text shadow for better readability */
+            z-index: 2;
+            /* Ensure heading is above video */
+            font-family: ubuntu;
+        }
+
+        .hero h2 {
+            font-size: 40px;
+            /* Font size for the subheading */
+            margin: 10px 0;
+            /* Margin for spacing */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            /* Text shadow for better readability */
+            z-index: 2;
+            /* Ensure subheading is above video */
+            font-family: ubuntu;
+        }
+
+        .hero .cta-buttons {
+            margin-top: 20px;
+            /* Space above buttons */
+            z-index: 2;
+            /* Ensure buttons are above video */
+        }
+
+        .hero .cta-buttons a {
+            background-color: red;
+            /* Red background for buttons */
+            color: white;
+            /* White text color */
+            padding: 15px 30px;
+            /* Padding for buttons */
+            margin: 10px;
+            /* Margin for spacing */
+            text-decoration: none;
+            /* Remove underline */
+            border-radius: 5px;
+            /* Rounded corners */
+            transition: background-color 0.3s;
+            /* Smooth transition for hover */
+            font-family: ubuntu;
+        }
+
+        .hero .cta-buttons a:hover {
+            background-color: rgb(201, 6, 6);
+            /* Darker red on hover */
+        }
+
+        .second-section {
+            background: linear-gradient(rgb(225, 14, 14), rgb(234, 164, 164));
+            /* Gradient background */
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 1px 20px 5px rgba(110, 6, 6, 0.1);
+            /* Subtle shadow */
+            border-radius: 10px;
+            /* Rounded corners */
+
+        }
+
+        .carousel-intro {
+            text-align: center;
+            /* Center the text */
+            margin-bottom: 20px;
+            /* Space below the intro section */
+            box-shadow: 4px 7px 10px rgba(24, 1, 1, 0.1);
+            /* Subtle shadow */
+            ;
+            background: linear-gradient(rgb(236, 18, 18), rgb(230, 111, 111));
+            /* Gradient background */
+            border-radius: 15px;
+            padding: 13px;
+
+        }
+
+        .carousel-intro h2 {
+            color: rgb(232, 219, 219);
+            /* Red color for the title */
+            font-size: 50px;
+            /* Font size for the title */
+            font-family: 'Oswald', sans-serif;
+            /* Font family for the title */
+            margin-bottom: 10px;
+            /* Space below the title */
+        }
+
+        .carousel-intro p {
+            color: #333;
+            /* Darker color for the description */
+            font-size: 16px;
+            /* Font size for the description */
+            max-width: 800px;
+            /* Max width for the description */
+            font-family: ubuntu;
+            margin: 0 auto;
+            /* Center the description */
+        }
+
+
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.6);
+            /* Semi-transparent black background */
+            padding: 20px;
+            /* Add padding for better spacing */
+            border-radius: 10px;
+            /* Rounded corners */
+            color: white;
+            /* White text color for better contrast */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            /* Subtle text shadow for readability */
+        }
+
+        .carousel-caption h5 {
+            font-size: 24px;
+            /* Larger font size for the title */
+            font-weight: bold;
+            /* Bold text for emphasis */
+            margin-bottom: 10px;
+            /* Space below the title */
+            font-family: 'Oswald', sans-serif;
+            /* Use Oswald font for the title */
+        }
+
+        .carousel-caption p {
+            font-size: 16px;
+            /* Adjust font size for the description */
+            line-height: 1.5;
+            /* Improve line spacing */
+            margin: 0;
+            /* Remove default margin */
+            font-family: 'Ubuntu', sans-serif;
+            /* Use Ubuntu font for the description */
+        }
+
+
+
+        .steps-section {
+            padding: 40px;
+            /* Padding for the section */
+            max-width: 1200px;
+            /* Max width for the section */
+            margin: 40px auto;
+            /* Center the section */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+            text-align: center;
+            /* Center the text */
+            background-color: #f2f2f2;
+            /* Light gray background */
+            border-left: 10px solid #c0392b;
+            /* Red border on the left */
+            border-right: 10px solid #c0392b;
+            /* Red border on the right */
+            border-radius: 10px;
+            /* Rounded corners */
+        }
+
+        .steps-section h2 {
+            font-size: 36px;
+            /* Font size for the heading */
+            color: #c0392b;
+            /* Red color for the heading */
+            margin-bottom: 20px;
+            /* Space below the heading */
+            font-family: 'Oswald', sans-serif;
+            /* Font family for the heading */
+        }
+
+        .progress-bar-container {
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            position: relative;
+            height: 10px;
+            background-color: #e0e0e0;
+            /* Light gray background */
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #c0392b;
+            /* Red progress color */
+            transition: width 0.5s ease;
+            /* Smooth transition for progress */
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .progress-steps .step {
+            font-size: 14px;
+            color: #666;
+            /* Gray color for inactive steps */
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .progress-steps .step.active {
+            color: #c0392b;
+            /* Red color for active step */
+            font-weight: bold;
+        }
+
+        .steps-container .step-card:nth-child(4) {
+            flex-grow: 1;
+            /* Allow the fourth card to grow and fill the remaining space */
+            max-width: unset;
+            /* Remove the max-width restriction */
+        }
+
+        .steps-container {
+            display: flex;
+            /* Use flexbox for layout */
+            justify-content: space-between;
+            /* Space between cards */
+            flex-wrap: wrap;
+            /* Allow wrapping on smaller screens */
+            gap: 20px;
+            /* Space between cards */
+        }
+
+        .step-card {
+            flex: 1;
+            /* Allow cards to grow */
+            background-color: white;
+            /* White background for cards */
+            border-radius: 10px;
+            /* Rounded corners for cards */
+            padding: 20px;
+            /* Padding inside cards */
+            margin: 10px;
+            /* Space between cards */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Shadow for cards */
+            min-width: 250px;
+            /* Minimum width for cards */
+            max-width: 300px;
+            /* Maximum width for cards */
+            text-align: center;
+            /* Center text in cards */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Smooth hover effect */
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            /* Lift the card on hover */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Add a stronger shadow on hover */
+            cursor: pointer;
+            /* Change cursor to pointer */
+        }
+
+        .step-icon {
+            margin-bottom: 15px;
+            /* Space between icon and text */
+        }
+
+        .step-icon img {
+            width: 80px;
+            /* Set icon size */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        .step-content h3 {
+            font-size: 20px;
+            /* Font size for step titles */
+            color: #c0392b;
+            /* Red color for step titles */
+            margin-bottom: 10px;
+            /* Space below the title */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for step titles */
+        }
+
+        .step-content p {
+            font-size: 14px;
+            /* Font size for step descriptions */
+            color: #333;
+            /* Darker color for text */
+            line-height: 1.5;
+            /* Improve readability */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for step descriptions */
+        }
+
+        .why-donate-section {
+            background-color: #f9f9f9;
+            /* Light background */
+            padding: 40px;
+            /* Padding for the section */
+            border-radius: 10px;
+            /* Rounded corners */
+            max-width: 1200px;
+            /* Limit the width */
+            margin: 40px auto;
+            /* Center the section */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+            border-left: 10px solid #c0392b;
+            /* Red border on the left */
+            border-right: 10px solid #c0392b;
+            /* Red border on the right */
+            border-radius: 10px;
+            /* Rounded corners */
+        }
+
+        .why-donate-section h2 {
+            text-align: center;
+            /* Center the heading */
+            color: #c0392b;
+            /* Red color for the heading */
+            margin-bottom: 20px;
+            /* Space below the heading */
+            font-family: 'Oswald', sans-serif;
+            /* Font family for the heading */
+            font-size: 36px;
+            /* Font size for the heading */
+        }
+
+        .grid-container {
+            display: grid;
+            /* Use grid layout */
+            grid-template-columns: repeat(3, 1fr);
+            /* 3 columns */
+            gap: 20px;
+            /* Space between grid items */
+            justify-items: center;
+            /* Center items horizontally */
+        }
+
+        .grid-item {
+            background-color: white;
+            /* White background for items */
+            border-radius: 8px;
+            /* Rounded corners for items */
+            padding: 15px;
+            /* Padding inside items */
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            /* Shadow for items */
+            text-align: center;
+            /* Center text in items */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Smooth hover effect */
+            width: 100%;
+            /* Ensure items take full width of the column */
+            max-width: 300px;
+            /* Limit the maximum width */
+        }
+
+        .grid-item:hover {
+            transform: translateY(-10px);
+            /* Lift the item on hover */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Stronger shadow on hover */
+        }
+
+        .icon {
+            font-size: 40px;
+            /* Size for icons */
+            margin-bottom: 10px;
+            /* Space below icon */
+        }
+
+        .grid-item h3 {
+            margin: 10px 0 5px;
+            /* Margin for title */
+            color: #c0392b;
+            /* Red color for titles */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for titles */
+        }
+
+        .grid-item p {
+            margin: 5px 0;
+            /* Margin for text */
+            color: #333;
+            /* Darker color for text */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for text */
+        }
+
+        .why-it-matters {
+            font-style: italic;
+            /* Italic style for "Why it matters" text */
+            color: #666;
+            /* Lighter color for "Why it matters" text */
+            margin-top: 5px;
+            /* Space above "Why it matters" text */
+        }
+
+        .why-it-matters {
+            font-style: italic;
+            /* Italic style for "Why it matters" text */
+            color: #666;
+            /* Lighter color for "Why it matters" text */
+            margin-top: 5px;
+            /* Space above "Why it matters" text */
+        }
+
+        .blood-type-section {
+            padding: 30px;
+            /* Padding for the section */
+            max-width: 1200px;
+            /* Max width for the section */
+            margin: 40px auto;
+            /* Center the section */
+            background: linear-gradient(to bottom, #fdf2e9, #fbeee6);
+            /* Light peach gradient background */
+            border: 5px solid #f32c12;
+            /* Orange border */
+            border-radius: 15px;
+            /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+        }
+
+        .blood-type-section h2 {
+            text-align: center;
+            /* Center the main title */
+            color: #c0392b;
+            /* Dark red color for the title */
+            margin-bottom: 20px;
+            /* Space below the title */
+            font-family: 'Oswald', sans-serif;
+            /* Font family for the title */
+            font-size: 36px;
+            /* Font size for the title */
+        }
+
+        .blood-type-info {
+            margin-bottom: 20px;
+            /* Space between info sections */
+        }
+
+        .blood-type-info h3 {
+            color: #333;
+            /* Darker color for subheadings */
+            font-size: 24px;
+            /* Font size for subheadings */
+            border-bottom: 2px solid #c0392b;
+            /* Underline for subheadings */
+            padding-bottom: 5px;
+            /* Space below the subheading */
+            margin-bottom: 10px;
+            /* Space below the subheading */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for subheadings */
+        }
+
+        .blood-type-info p {
+            font-size: 16px;
+            /* Font size for text */
+            color: #555;
+            /* Slightly darker text color */
+            line-height: 1.6;
+            /* Improve readability */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for text */
+        }
+
+        .blood-compatibility-table {
+            margin: 20px 0;
+            /* Space around the table */
+        }
+
+        .blood-compatibility-table h3 {
+            color: #333;
+            /* Darker color for table heading */
+            font-size: 24px;
+            /* Font size for table heading */
+            margin-bottom: 10px;
+            /* Space below the heading */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for table heading */
+        }
+
+        .blood-compatibility-table table {
+            width: 100%;
+            /* Full width for the table */
+            border-collapse: collapse;
+            /* Collapse borders */
+            margin-top: 10px;
+            /* Space above the table */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for table text */
+        }
+
+        .blood-compatibility-table th,
+        .blood-compatibility-table td {
+            border: 1px solid #ddd;
+            /* Light border for table cells */
+            padding: 12px;
+            /* Padding for table cells */
+            text-align: center;
+            /* Center text in table cells */
+            font-size: 14px;
+            /* Font size for table text */
+        }
+
+        .blood-compatibility-table th {
+            background-color: #c0392b;
+            /* Dark red background for header */
+            color: white;
+            /* White text for header */
+            font-size: 16px;
+            /* Font size for header text */
+        }
+
+        .blood-compatibility-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+            /* Light gray background for alternate rows */
+        }
+
+        .interesting-facts {
+            background-color: #e8f8f5;
+            /* Light teal background for facts */
+            padding: 20px;
+            /* Padding for the facts section */
+            border-radius: 8px;
+            /* Rounded corners */
+            margin-top: 20px;
+            /* Space above the facts section */
+        }
+
+        .interesting-facts h3 {
+            color: #333;
+            /* Darker color for heading */
+            font-size: 24px;
+            /* Font size for heading */
+            margin-bottom: 10px;
+            /* Space below the heading */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for heading */
+        }
+
+        .interesting-facts ul {
+            list-style-type: disc;
+            /* Bullet points for the list */
+            padding-left: 20px;
+            /* Indent for the list */
+            font-size: 16px;
+            /* Font size for list items */
+            color: #555;
+            /* Slightly darker text color */
+            line-height: 1.6;
+            /* Improve readability */
+            font-family: 'Ubuntu', sans-serif;
+            /* Font family for list items */
+        }
+
+        .faq-carousel {
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+            /* Light gradient background */
+            border-top: 5px solid #c0392b;
+            /* Red border at the top */
+            border-bottom: 5px solid #c0392b;
+            /* Red border at the bottom */
+            border-radius: 10px;
+            /* Rounded corners */
+        }
+
+        .faq-carousel h2 {
+            font-size: 28px;
+            color: #c0392b;
+            margin-bottom: 20px;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .faq-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq-cards {
+            display: flex;
+            transition: transform 0.9s ease-in-out;
+            width: 100%;
+        }
+
+        .faq-card {
+            min-width: 100%;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px 80px;
+            text-align: left;
+            font-family: 'Ubuntu', sans-serif;
+            border-radius: 30px;
+        }
+
+        .faq-card h4 {
+            font-size: 20px;
+            color: #c0392b;
+            margin-bottom: 10px;
+        }
+
+        .faq-card p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .faq-nav {
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            transition: background-color 0.3s;
+        }
+
+        .faq-nav:hover {
+            background-color: #a93226;
+        }
+
+        .faq-nav.left {
+            left: 10px;
+        }
+
+        .faq-nav.right {
+            right: 10px;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+                /* Start from the right */
+            }
+
+            100% {
+                transform: translateX(-100%);
+                /* End at the left */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <img src="./Images/4.jpg" alt="Logo"> <!-- Replace with your logo image -->
+            <h1>Life Loop</h1> <!-- Replace with your site name -->
+        </div>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#request-or-donate">Request or Donate Blood</a>
+        <a href="#records-and-certificate">Records and Certificate</a>
+        <a href="#profile">Profile</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+
+    <div class="hero">
+        <video autoplay muted loop>
+            <source src="./Images/blood.mp4" type="video/mp4"> <!-- Replace with your video file -->
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero">
+            <h1>Donate Blood. Save Lives.</h1>
+            <h2>Join the Life Loop and be someone’s lifeline.</h2>
+            <div class="cta-buttons">
+                <a href="#register" class="register-button">🔴 Register as a Donor</a>
+                <a href="#find-donor" class="find-donor-button">🔍 Find a Donor Near You</a>
+            </div>
+        </div>
+    </div>
+    <div class="second-section">
+        <div class="carousel-intro">
+            <h2>🚑 Recent Blood Donation Camps & Drives</h2>
+            <p>Together, we are building a stronger, healthier community.
+                Stay informed about the latest blood donation events happening around you. Here’s a glimpse of recent
+                camps and drives conducted in and around Pune, where heroes like you made a life-saving difference.</p>
+        </div>
+
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://aniruddhafoundation.com/wp-content/uploads/2018/09/blood_donation_01-768x512.jpg"
+                        class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>District-Wide Mega Blood Donation Drive</h5>
+                        <p>Organizer: Aniruddha’s Academy of Disaster Management (AADM)<br>
+
+                            Date: March 2025<br>
+
+                            Blood Collected: 1,308 units<br>
+
+                            Volunteers: 1,730 donors<br>
+
+                            Locations: 15 centers including Hadapsar, Katraj, Pimple Saudagar, Dhanori, Moshi, Karve
+                            Nagar, Baramati<br>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D22AQEqzUzw2xlxew/feedshare-shrink_2048_1536/B4DZSsmRuMH0Ao-/0/1738062506780?e=1747267200&v=beta&t=awCLLW1-ylQGxbLyAVzwA0uzxLKo8ymfMuE_F54fe8s"
+                        class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5> Surendra Pathare Foundation – Annual Camp</h5>
+                        <p>Organizer: Surendra Pathare Foundation<br>
+
+                            Date: January 2025<br>
+
+                            Blood Bags Collected: 3,671 (Record-breaking)<br>
+
+                            Location: Kharadi, Pune<br>
+
+                            Highlight: One of Pune’s largest single-day blood collection events<br>
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://swd.vit.edu/flagship/blood-d/imgs/_MG_8545.webp" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5> Blood-D Donation Drive by VIT Pune</h5>
+                        <p>
+                            Date: March 2025<br>
+                            Location: Vishwakarma Institute of Technology (VIT), Pune<br>
+                            One of the largest college-run blood donation drives in Pune with 602+ donors in two
+                            days.<br>
+                            Organizer: VIT Pune Social Welfare & Development Committee
+                        </p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://www.mypunepulse.com/wp-content/uploads/2024/06/blood.jpg" class="d-block w-100"
+                        alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5> Community Blood Donation Drive in Undri</h5>
+                        <p>
+                            Date: June 23, 2024<br>
+                            Location: Nyati Ethos Clubhouse, Behind Corinthians Club, Undri, Pune<br>
+                            The event was graced by MLA Sanjay Jagtap, who appreciated the collective effort and
+                            encouraged more such initiatives.<br>
+                            Organizer: Grant Medical Foundation's Ruby Hall Clinic, in association with Bliss Cafe
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://cdn-mybharat.dl6.in/events/67e12e931165c105111.jpeg" class="d-block w-100"
+                        alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5> Sri Balaji University NSS Blood Donation Camp</h5>
+                        <p>
+                            Date: March 22, 2025<br>
+                            Location: Sri Balaji University Campus, Pune<br>
+                            The NSS Department of Sri Balaji University organized a successful blood donation camp to
+                            support local hospitals. <br>
+                            Organizer: NSS Department, Sri Balaji University, Pune<br>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="steps-section">
+        <h2>How It Works</h2>
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div class="progress-bar">
+                <div class="progress" style="width: 0%;"></div>
+            </div>
+            <div class="progress-steps">
+                <span class="step active">Step 1</span>
+                <span class="step">Step 2</span>
+                <span class="step">Step 3</span>
+                <span class="step">Step 4</span>
+            </div>
+        </div>
+        <!-- Steps -->
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-icon">
+                    <img src="https://www.seekpng.com/png/full/278-2783353_mobile-mobile-phone-icon-red-png.png"
+                        alt="Mobile Icon">
+                </div>
+                <div class="step-content">
+                    <h3>Step 1: Register</h3>
+                    <p>Create a profile by adding your name, age, gender, blood group, and contact details.</p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">
+                    <img src="https://static.vecteezy.com/system/resources/previews/011/155/562/original/blood-drops-donor-transfusion-symbol-3d-icon-illustration-png.png"
+                        alt="Blood Drop Icon">
+                </div>
+                <div class="step-content">
+                    <h3>Step 2: Request or Donate</h3>
+                    <p>Need blood or want to donate? Just tap one button to post a request or offer help.</p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">
+                    <img src="https://static.vecteezy.com/system/resources/previews/000/380/530/original/notification-vector-icon.jpg"
+                        alt="Notification Icon">
+                </div>
+                <div class="step-content">
+                    <h3>Step 3: Real-Time Notification & Chat</h3>
+                    <p>Nearby donors are notified instantly. Use in-app chat to coordinate the donation.</p>
+                </div>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">
+                    <img src="https://static.vecteezy.com/system/resources/previews/003/686/355/original/certificate-red-flat-design-long-shadow-glyph-icon-vector.jpg"
+                        alt="Certificate Icon">
+                </div>
+                <div class="step-content">
+                    <h3>Step 4: Donate & Receive Certificate</h3>
+                    <p>Donate at a nearby center. After verification, receive a digital certificate and save records.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="why-donate-section">
+        <h2>Why Donate With Us?</h2>
+        <div class="grid-container">
+            <!-- Row 1 -->
+            <div class="grid-item" data-aos="fade-right" data-aos-delay="100">
+                <div class="icon">🕒</div>
+                <h3>Real-Time Matching</h3>
+                <p>Our system instantly connects donors and receivers based on blood group and location.</p>
+                <p class="why-it-matters">Why it matters: Saves time in emergencies.</p>
+            </div>
+            <div class="grid-item" data-aos="fade-right" data-aos-delay="200">
+                <div class="icon">🏥</div>
+                <h3>Verified Donation Centers</h3>
+                <p>All donations happen only at registered and trusted hospitals or blood banks.</p>
+                <p class="why-it-matters">Why it matters: Ensures safety and trust.</p>
+            </div>
+            <div class="grid-item" data-aos="fade-right" data-aos-delay="300">
+                <div class="icon">📍</div>
+                <h3>Location-Based Search</h3>
+                <p>Use Google Maps to locate the nearest available donors or donation centers.</p>
+                <p class="why-it-matters">Why it matters: Easy and local coordination.</p>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="grid-item" data-aos="fade-right" data-aos-delay="400">
+                <div class="icon">📊</div>
+                <h3>Track Your Impact</h3>
+                <p>View how many lives you’ve helped and track your donation history.</p>
+                <p class="why-it-matters">Why it matters: Motivates repeated donations and builds credibility.</p>
+            </div>
+            <div class="grid-item" data-aos="fade-right" data-aos-delay="500">
+                <div class="icon">🎖️</div>
+                <h3>Donation Certificates</h3>
+                <p>Get a digital certificate after every successful donation — a badge of honor!</p>
+                <p class="why-it-matters">Why it matters: Adds motivation and shareability.</p>
+            </div>
+            <div class="grid-item" data-aos="fade-right" data-aos-delay="600">
+                <div class="icon">🚨</div>
+                <h3>Emergency Alerts</h3>
+                <p>In critical cases, send SOS alerts to nearby eligible donors immediately.</p>
+                <p class="why-it-matters">Why it matters: Useful in urgent, life-saving situations.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="blood-type-section">
+        <h2>🩸 Know Your Blood Type</h2>
+
+        <!-- Blood Type Information -->
+        <div class="blood-type-info">
+            <h3>What Are Blood Types?</h3>
+            <p>Blood types are categorized into four main groups: A, B, AB, and O. Each group is further classified as
+                positive (+) or negative (−) based on the Rh factor, resulting in eight blood types. Knowing your blood
+                type is essential for safe blood transfusions and medical emergencies.</p>
+        </div>
+
+        <div class="blood-type-info">
+            <h3>Universal Donors & Recipients</h3>
+            <p><strong>O−</strong> is the universal donor, meaning it can be given to any blood type. Conversely,
+                <strong>AB+</strong> is the universal recipient, able to receive blood from any group. This knowledge is
+                especially vital in emergency situations.
+            </p>
+        </div>
+
+        <!-- Blood Compatibility Table -->
+        <div class="blood-compatibility-table">
+            <h3>Blood Compatibility Table</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Blood Type</th>
+                        <th>Can Donate To</th>
+                        <th>Can Receive From</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>O−</td>
+                        <td>All blood types</td>
+                        <td>O−</td>
+                    </tr>
+                    <tr>
+                        <td>O+</td>
+                        <td>O+, A+, B+, AB+</td>
+                        <td>O+, O−</td>
+                    </tr>
+                    <tr>
+                        <td>A−</td>
+                        <td>A−, A+, AB−, AB+</td>
+                        <td>A−, O−</td>
+                    </tr>
+                    <tr>
+                        <td>A+</td>
+                        <td>A+, AB+</td>
+                        <td>A+, A−, O+, O−</td>
+                    </tr>
+                    <tr>
+                        <td>B−</td>
+                        <td>B−, B+, AB−, AB+</td>
+                        <td>B−, O−</td>
+                    </tr>
+                    <tr>
+                        <td>B+</td>
+                        <td>B+, AB+</td>
+                        <td>B+, B−, O+, O−</td>
+                    </tr>
+                    <tr>
+                        <td>AB−</td>
+                        <td>AB−, AB+</td>
+                        <td>AB−, A−, B−, O−</td>
+                    </tr>
+                    <tr>
+                        <td>AB+</td>
+                        <td>AB+</td>
+                        <td>All blood types</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Interesting Blood Facts -->
+        <div class="interesting-facts">
+            <h3>Interesting Blood Facts</h3>
+            <ul>
+                <li>Only 1 in 15 people have O− blood.</li>
+                <li>AB− is the rarest blood type.</li>
+                <li>You can donate blood every 3 months (males) or 4 months (females).</li>
+                <li>One donation can save up to 3 lives!</li>
+                <li>Blood makes up about 7% of your body weight.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="faq-carousel">
+        <h2>✅ Frequently Asked Questions</h2>
+        <div class="faq-wrapper">
+            <!-- FAQ Cards -->
+            <div class="faq-cards">
+                <div class="faq-card">
+                    <h4>Is donating blood safe?</h4>
+                    <p>Yes, donating blood is completely safe. All equipment used is sterile and single-use to prevent
+                        any infection or health risk.</p>
+                </div>
+                <div class="faq-card">
+                    <h4>How often can I donate blood?</h4>
+                    <p>Generally, males can donate every 3 months, and females every 4 months. This allows your body
+                        enough time to replenish the blood.</p>
+                </div>
+                <div class="faq-card">
+                    <h4>Who can donate blood?</h4>
+                    <p>Anyone aged between 18 to 65 years, weighing at least 50 kg, and in good health can donate blood.
+                        However, specific eligibility criteria may vary slightly.</p>
+                </div>
+                <div class="faq-card">
+                    <h4>Is there a record of my donations?</h4>
+                    <p>Yes, your donations are tracked and recorded in your profile. You can also receive digital
+                        certificates as proof of your contributions.</p>
+                </div>
+                <div class="faq-card">
+                    <h4>Do I need to pay to use this service?</h4>
+                    <p>No, the platform is free to use. Our goal is to help save lives through voluntary blood donation.
+                    </p>
+                </div>
+                <div class="faq-card">
+                    <h4>What should I do before donating blood?</h4>
+                    <p>Ensure you are well-hydrated, have eaten a healthy meal, and are not feeling sick or fatigued.
+                        Avoid alcohol and smoking before donating.</p>
+                </div>
+                <div class="faq-card">
+                    <h4>Can I donate blood if I have a medical condition?</h4>
+                    <p>It depends on the condition. Consult with your doctor or the blood donation center to determine
+                        your eligibility.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>Will donating blood make me weak?</h4>
+                    <p>No, your body quickly replenishes the lost blood. You may feel slightly tired, but this can be
+                        managed by staying hydrated and resting.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>How long does the donation process take?</h4>
+                    <p>The entire process, including registration, donation, and post-donation rest, usually takes about
+                        1-2 hours.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>Can I donate blood if I am on medication?</h4>
+                    <p>Some medications may affect your eligibility. Always consult with your healthcare provider or the
+                        donation center before donating.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>How is my blood type determined?</h4>
+                    <p>Your blood type is determined by the presence or absence of specific antigens on the surface of
+                        your red blood cells. These antigens are inherited from your parents and are classified into the
+                        ABO and Rh systems.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>What are the benefits of donating blood?</h4>
+                    <p>Donating blood helps save lives, improves your cardiovascular health, and provides a free
+                        mini-health check-up.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>How much blood is taken during donation?</h4>
+                    <p>Typically, about 1 pint (450 ml) of blood is collected during a donation.</p>
+                </div>
+            </div>
+
+
+            <!-- Right Button -->
+            <button class="faq-nav right" onclick="moveFAQ(1)">&#10095;</button>
+            <!-- Left Button -->
+            <button class="faq-nav left" onclick="moveFAQ(-1)">&#10094;</button>
+
+
+        </div>
+    </div>
+
+
+</body>
+<script>
+    AOS.init({
+        duration: 1000, // Animation duration in milliseconds
+        offset: 200,    // Offset from the original trigger point
+        easing: 'ease-in-out', // Easing function
+        once: true      // Animation happens only once
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+    crossorigin="anonymous"></script>
+<script src="./mainLandingPage.js"></script>
+
+</html>
