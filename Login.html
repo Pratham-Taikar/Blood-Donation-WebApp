@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, rgb(136, 8, 8), rgb(136, 8, 8));
+        }
+
+        h1 {
+            color: rgb(136, 8, 8);
+        }
+
+        .container {
+            width: 900px;
+            background: #fff;
+            border-radius: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .form-container {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .form-container h1 {
+            color: #e63946;
+            font-size: 25px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-container button {
+            width: 50%;
+            padding: 10px;
+            background: rgb(136, 8, 8);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background 0.3s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .form-container button:hover {
+            background: #d72638;
+        }
+
+        .toggle-section {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(136, 8, 8);
+            font-weight: bold;
+            transition-duration: 0.3s;
+        }
+
+        a:hover {
+            color: black;
+            transition-duration: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="form-container" id="loginForm">
+            <img src="./Images/Web-logo.jpg" alt="Company Logo" width="260" height="170">
+            <br>
+            <h1>We welcome you!</h1>
+            <input id="email" type="email" placeholder="Email" required />
+            <input id="password" type="password" placeholder="Password" required />
+            <button onclick="login(event)">SIGN IN</button>
+            <div class="toggle-section">
+                <span>Don't have an account?</span>
+                <a href="./Signup.html">Register here</a>
+            </div>
+        </form>
+        <script type="module" src="./firebase-config.js"></script>
+        <script type="module" src="./app.js"></script>
+</body>
+
+</html>

@@ -4,20 +4,22 @@ import {
   createUserWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-window.login = function () {
+window.login = function (event) {
+  event.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   signInWithEmailAndPassword(auth, email, password)
     .then(() => {
-      window.location.href = "chat.html"; // This should redirect
+      window.location.href = "./mainLandingPage.html"; // This should redirect
     })
     .catch((error) => {
       alert(error.message);
     });
 };
 
-window.signup = function () {
+window.signup = function (event) {
+  event.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
