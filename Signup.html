@@ -106,8 +106,8 @@
             <h1>Register with us</h1>
             <input id="email" type="email" placeholder="Email" required />
             <input id="password" type="password" placeholder="Password" required />
-            <input type="text" placeholder="Full Name" required />
-            <select required>
+            <input id="fullName" type="text" placeholder="Full Name" required />
+            <select id="blood-grp" required>
                 <option value="" disabled selected>Blood Type</option>
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
@@ -118,9 +118,9 @@
                 <option value="AB+">AB+</option>
                 <option value="AB-">AB-</option>
             </select>
-            <input type="text" placeholder="Contact Number" required />
-            <input type="text" placeholder="City" required />
-            <button onclick="signup(event)">REGISTER</button>
+            <input id="contactNo" type="text" placeholder="Contact Number" required />
+            <input id="city" type="text" placeholder="City" required />
+            <button id="register-btn" onclick="signup(event)">REGISTER</button>
             <div class=" toggle-section">
                 <span>Already have one account</span>
                 <br>
@@ -130,6 +130,7 @@
     </div>
     <script type="module" src="./firebase-config.js"></script>
     <script type="module" src="./app.js"></script>
+    <script src="./inputs.js"></script>
 </body>
 
 </html>

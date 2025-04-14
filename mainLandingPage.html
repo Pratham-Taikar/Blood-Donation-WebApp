@@ -209,10 +209,11 @@
             /* Ensure buttons are above video */
         }
 
-        .hero .cta-buttons a {
+        .hero .cta-buttons button {
             background-color: rgb(201, 6, 6);
             /* Red background for buttons */
             color: white;
+            border: none;
             /* White text color */
             padding: 15px 30px;
             /* Padding for buttons */
@@ -225,10 +226,12 @@
             transition: background-color 0.3s;
             /* Smooth transition for hover */
             font-family: ubuntu;
+            transition-duration: 0.3s;
         }
 
-        .hero .cta-buttons a:hover {
+        .hero .cta-buttons button:hover {
             background-color: rgb(138, 11, 11);
+            transform: scale(1.02);
             /* Darker red on hover */
         }
 
@@ -869,8 +872,8 @@
             <h1>Donate Blood. Save Lives.</h1>
             <h2>Join the Life Loop and be someone’s lifeline.</h2>
             <div class="cta-buttons">
-                <a href="#register" class="register-button">🔴 Register as a Donor</a>
-                <a href="#find-donor" class="find-donor-button">🔍 Find a Donor Near You</a>
+                <button class="register-button">🔴 Register as a Donor</button>
+                <button class="find-donor-button">🔍 Find a Donor Near You</button>
             </div>
         </div>
     </div>

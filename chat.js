@@ -7,7 +7,8 @@ import {
   orderBy,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-const username = prompt("What should we call you by..");
+const username = JSON.parse(localStorage.getItem("obj"))?.fullName;
+console.log(username);
 
 // Get references
 const chatBox = document.getElementById("chat-box");
