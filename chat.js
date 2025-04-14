@@ -39,11 +39,25 @@ const loadMessages = () => {
     snapshot.forEach((doc) => {
       const msg = doc.data();
       const messageDiv = document.createElement("div");
-      messageDiv.classList.add(
-        "message",
-        msg.uid === auth.currentUser.uid ? "sent" : "received"
-      );
-      messageDiv.innerText = `${msg.text} :${msg.Username}`;
+      const usernameDiv = document.createElement("div");
+
+      // Username in bold
+      usernameDiv.innerText = msg.Username;
+      usernameDiv.style.fontWeight = "bold";
+
+      // Determine whether the message is sent or received and apply the styles accordingly
+      if (msg.uid === auth.currentUser.uid) {
+        messageDiv.classList.add("message", "sent");
+        messageDiv.innerText = `${msg.text}`;
+        usernameDiv.style.textAlign = "right"; // Right-align for sent messages
+      } else {
+        messageDiv.classList.add("message", "received");
+        messageDiv.innerText = `${msg.text}`;
+        usernameDiv.style.textAlign = "left"; // Left-align for received messages
+      }
+
+      // Append username above the message
+      messageDiv.prepend(usernameDiv); // Put username above the message
       chatBox.appendChild(messageDiv);
     });
 
@@ -57,6 +71,6 @@ auth.onAuthStateChanged((user) => {
   if (user) {
     loadMessages();
   } else {
-    window.location.href = "index.html"; // Redirect if not logged in
+    window.location.href = "./Login.html"; // Redirect if not logged in
   }
 });
