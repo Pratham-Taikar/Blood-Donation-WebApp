@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let fullName = document.getElementById("fullName").value;
+    let gender = document.getElementById("Gender").value;
     let bloodGroup = document.getElementById("blood-grp").value;
     let contactNo = document.getElementById("contactNo").value;
     let city = document.getElementById("city").value;
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       bloodGroup: bloodGroup,
       Contact: contactNo,
       City: city,
+      Gender: gender,
     };
 
     console.log(obj);

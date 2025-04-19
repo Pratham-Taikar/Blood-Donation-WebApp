@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeSaver - Donor Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./Profile.css ">
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <h1 class="profile-title">Donor Profile</h1>
+            <div class="header-controls">
+                <div class="language-selector">
+                    <button class="language-btn" id="languageBtn">
+                        <i class="fas fa-globe"></i> English
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option" data-lang="en">English</div>
+                        <div class="language-option" data-lang="hi">हिन्दी</div>
+                    </div>
+                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i> Dark Mode
+                </button>
+                <button id="themeToggle" class="theme-toggle" onclick="window.location.href='./mainLandingPage.html';">
+                    Go Back
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <img src="C:\Users\prash\Pictures\Screenshots\Screenshot 2024-12-30 205932.png" alt="Profile Picture"
+                    class="profile-picture" id="profilePicture">
+                <h2 class="profile-name" id="profileName">John Doe</h2>
+                <div class="profile-badge">Active Donor</div>
+
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Email:</div>
+                        <div class="detail-value" id="profileEmail">john.doe@example.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone:</div>
+                        <div class="detail-value" id="profilePhone">+1 (555) 123-4567</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Location:</div>
+                        <div class="detail-value" id="profileLocation">New York, USA</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Age:</div>
+                        <div class="detail-value" id="profileAge">32</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Gender:</div>
+                        <div class="detail-value" id="profileGender">Male</div>
+                    </div>
+                </div>
+
+                <div class="blood-type" id="profileBloodType">A+</div>
+
+                <div class="stats-container">
+                    <div class="detail-item">
+                        <div class="detail-label">Donations:</div>
+                        <div class="detail-value" id="profileDonations">12</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Last Donation:</div>
+                        <div class="detail-value" id="profileLastDonation">2023-05-15</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Personal Information</h3>
+                        <button class="edit-btn" id="editProfileBtn">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+                    <div class="profile-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Full Name:</div>
+                            <div class="detail-value" id="profileFullName">John Michael Doe</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Date of Birth:</div>
+                            <div class="detail-value" id="profileDob">1990-08-12</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">City:</div>
+                            <div class="detail-value" id="profileAddress">New York</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Emergency Contact:</div>
+                            <div class="detail-value" id="profileEmergencyContact">Jane Doe (Wife) - +1 (555) 987-6543
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Donation History</h3>
+                    </div>
+                    <table class="donation-history">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Location</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donationHistoryBody">
+                            <!-- Filled by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Certificates & Achievements</h3>
+                    </div>
+                    <div class="certificates-container" id="certificatesContainer">
+                        <!-- Filled by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h3 class="modal-title">Edit Profile</h3>
+
+            <form id="profileForm">
+                <div class="form-group">
+                    <label class="form-label">Profile Picture</label>
+                    <input type="file" class="form-control" id="profilePictureInput" accept="image/*">
+                    <small id="profilePictureHelp" class="form-text text-muted">Max size: 2MB</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstNameInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastNameInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="emailInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dobInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Gender</label>
+                    <select class="form-control" id="genderInput" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Blood Type</label>
+                    <select class="form-control" id="bloodTypeInput" required>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" id="addressInput" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Emergency Contact</label>
+                    <input type="text" class="form-control" id="emergencyContactInput" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelEditBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="./Profile.js"></script>
+</body>
+
+</html>

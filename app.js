@@ -22,6 +22,19 @@ window.signup = function (event) {
   event.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  let fullName = document.getElementById("fullName").value;
+  let bloodGroup = document.getElementById("blood-grp").value;
+  let contactNo = document.getElementById("contactNo").value;
+  let city = document.getElementById("city").value;
+
+  const obj = {
+    email,
+    password,
+    fullName,
+    bloodGroup,
+    contactNo,
+    city,
+  };
 
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {

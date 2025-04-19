@@ -1,0 +1,462 @@
+
+        :root {
+            --primary: rgb(136,8,8);/*this is for buttons*/
+            --secondary: #f1faee;
+            --dark: #1d3557;
+            --light: #a8dadc;
+            --white: #ffffff;
+            --background: rgb(136,8,8);
+            --text: #333;
+            --card-bg: #ffffff;
+            --border: #ddd;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --primary: #ff6b6b;
+            --secondary: #2b2d42;
+            --dark: #f8f9fa;
+            --light: #457b9d;
+            --white: #1a1a1a;
+            --background: #121212;
+            --text: #f8f9fa;
+            --card-bg: #2d2d2d;
+            --border: #444;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .profile-title {
+            font-size: 28px;
+            color: rgb(245, 241, 241)
+        }
+
+        .theme-toggle {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 10px;
+            color: var(--text);
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        .language-selector {
+            position: relative;
+        }
+        
+        .language-btn {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+        }
+        
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 10px;
+            width: 150px;
+            display: none;
+            z-index: 100;
+        }
+        
+        .language-dropdown.show {
+            display: block;
+        }
+        
+        .language-option {
+            padding: 8px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            color: rgb(136,8,8);
+        }
+        
+        .language-option:hover {
+            background-color: var(--secondary);
+        }
+        
+        .profile-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .profile-sidebar {
+            width: 300px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+            padding: 20px;
+            height: fit-content;
+        }
+        
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            display: block;
+            border: 3px solid var(--primary);
+        }
+        
+        .profile-name {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 5px;
+            color: rgb(136,8,8);
+        }
+        
+        .profile-badge {
+            background: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+            margin: 0 auto 20px;
+            text-align: center;
+        }
+        
+        .profile-details {
+            margin-bottom: 20px;
+        }
+        
+        .detail-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            width: 100px;
+            color: rgb(136,8,8);
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: var(--text);
+        }
+        
+        .blood-type {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .profile-content {
+            flex: 1;
+        }
+        
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .card-title {
+            font-size: 20px;
+            color: rgb(136,8,8);
+        }
+        
+        .edit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .edit-btn:hover {
+            background: #c1121f;
+        }
+        
+        .donation-history {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .donation-history th {
+            background: var(--secondary);
+            padding: 12px;
+            text-align: left;
+            color: rgb(136,8,8);
+        }
+        
+        .donation-history td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        
+        .donation-history tr:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-completed {
+            background: rgb(136,8,8);
+            color: white;
+        }
+        
+        .status-upcoming {
+            background: rgb(136,8,8);
+            color: white;
+        }
+        
+        .certificates-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .certificate-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px var(--shadow);
+            transition: transform 0.2s;
+            border: 1px solid var(--border);
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+        
+        .certificate-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: rgb(136,8,8);
+        }
+        
+        .certificate-date {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+        
+        .download-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .download-btn:hover {
+            background-color: #c1121f;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: var(--white);
+            color: var(--text);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            border: none;
+        }
+        
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+            animation: slideIn 0.3s, fadeOut 0.5s 2.5s;
+        }
+        
+        .alert-success {
+            background-color: #4CAF50;
+        }
+        
+        .alert-error {
+            background-color: #f44336;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+            }
+            
+            .profile-sidebar {
+                width: 100%;
+            }
+            
+            .certificates-container {
+                grid-template-columns: 1fr;
+            }
+
+            .header-controls {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 10px;
+            }
+        }
