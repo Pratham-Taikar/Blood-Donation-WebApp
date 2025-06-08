@@ -14,16 +14,16 @@ const themeToggle = document.getElementById("themeToggle");
 // Sample data (replace with real data from your backend)
 const currentUserId = 1;
 let userData = {
-  firstName: "John",
-  lastName: "Doe",
-  email: "john.doe@example.com",
-  phone: "+1 (555) 123-4567",
-  city: "New York",
+  firstName: "Pratham",
+  lastName: "Taikar",
+  email: "gmail@example.com",
+  phone: "+91 7709917835",
+  city: "India",
   country: "USA",
-  dateOfBirth: "1990-08-12",
+  dateOfBirth: "2006-03-15",
   gender: "male",
   bloodType: "A+",
-  address: "New York",
+  address: "India",
   emergencyContact: "Jane Doe (Wife) - +1 (555) 987-6543",
   totalDonations: 12,
   lastDonation: "2023-05-15",

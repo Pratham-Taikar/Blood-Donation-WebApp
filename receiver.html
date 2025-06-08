@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Receiver | Life Loop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .navbar { background: white; border-bottom: 2px solid red; padding: 10px 20px; display: flex; align-items: center; }
+    .logo img { height: 60px; margin-right: 10px; }
+    .logo h1 { font-size: 40px; color: red; margin: 0; }
+    .navbar a { margin-left: 15px; text-decoration: none; color: black; }
+    .navbar a:hover { color: red; }
+
+    #map { height: 500px; width: 90%; margin: 20px auto; border-radius: 10px; border: 2px solid #ccc; }
+    #form-container { width: 300px; margin: 30px auto; text-align: center; }
+    input, select, button { margin: 10px 0; padding: 8px; width: 100%; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: crimson; color: white; border: none; cursor: pointer; }
+    button:hover { background: darkred; }
+
+    #animation { display: none; text-align: center; font-weight: bold; font-size: 18px; color: crimson; animation: pulse 1s infinite; }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    .hospital-icon {
+      font-size: 24px;
+      color: #27ae60;
+      text-align: center;
+      line-height: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.jpg" alt="Logo" />
+      <h1>Life Loop</h1>
+    </div>
+    <a href="blood.html">Home</a>
+    <a href="#">How It Works</a>
+    <a href="#">Request or Donate</a>
+    <a href="#">Records</a>
+    <a href="#">Profile</a>
+  </div>
+
+  <!-- Receiver Info Form -->
+  <div id="form-container">
+    <input type="text" id="receiverName" placeholder="Your Name" required />
+    <select id="receiverBloodGroup">
+      <option value="">Select Blood Group</option>
+      <option value="A+">A+</option>
+      <option value="A-">A-</option>
+      <option value="B+">B+</option>
+      <option value="B-">B-</option>
+      <option value="O+">O+</option>
+      <option value="O-">O-</option>
+      <option value="AB+">AB+</option>
+      <option value="AB-">AB-</option>
+    </select>
+    <button onclick="submitReceiver()">Register as Receiver</button>
+    <div id="animation">🔄 Finding donors near you...</div>
+  </div>
+
+  <!-- Map Container -->
+  <div id="map"></div>
+
+  <!-- Leaflet + Firebase -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDPLf7I9MrbntDoyiAfurQCxm5WKwcq3eg",
+      authDomain: "sample-blood-app.firebaseapp.com",
+      projectId: "sample-blood-app",
+      storageBucket: "sample-blood-app.appspot.com",
+      messagingSenderId: "247190773925",
+      appId: "1:247190773925:web:cb527b697bb4d5585fad4c",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let map;
+    let receiverMarker;
+    let donorMarker;
+    let routingReceiverToHospital;
+    let routingDonorToHospital;
+
+    window.submitReceiver = async function () {
+      const name = document.getElementById("receiverName").value.trim();
+      const bloodGroup = document.getElementById("receiverBloodGroup").value;
+      if (!name || !bloodGroup) {
+        alert("Please enter your name and select blood group.");
+        return;
+      }
+
+      document.getElementById("animation").style.display = "block";
+      document.getElementById("animation").textContent = "🔄 Finding donors near you...";
+
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        try {
+          await addDoc(collection(db, "receivers"), {
+            name,
+            bloodGroup,
+            lat,
+            lng,
+            timestamp: new Date()
+          });
+
+          initMap(lat, lng);
+          findClosestDonorAndHospitals(lat, lng);
+        } catch (err) {
+          console.error("Error storing receiver data:", err);
+          alert("Error storing your data. Please try again.");
+          document.getElementById("animation").style.display = "none";
+        }
+      }, () => {
+        alert("Unable to retrieve your location.");
+        document.getElementById("animation").style.display = "none";
+      });
+    };
+
+    function initMap(lat, lng) {
+      if (map) {
+        map.remove();
+      }
+      map = L.map("map").setView([lat, lng], 13);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+      receiverMarker = L.marker([lat, lng], { icon: receiverIcon() }).addTo(map).bindPopup("You (Receiver)").openPopup();
+
+      // Track receiver location update continuously
+      navigator.geolocation.watchPosition((position) => {
+        const newLat = position.coords.latitude;
+        const newLng = position.coords.longitude;
+        receiverMarker.setLatLng([newLat, newLng]);
+        map.setView([newLat, newLng]);
+        updateRoutes(newLat, newLng);
+      });
+    }
+
+    async function findClosestDonorAndHospitals(receiverLat, receiverLng) {
+      const donorsSnapshot = await getDocs(collection(db, "donors"));
+      let nearestDonor = null;
+      let minDistance = Infinity;
+
+      donorsSnapshot.forEach(doc => {
+        const donor = doc.data();
+        const distance = getDistance(receiverLat, receiverLng, donor.lat, donor.lng);
+        if (distance < minDistance) {
+          minDistance = distance;
+          nearestDonor = donor;
+        }
+      });
+
+      if (!nearestDonor) {
+        document.getElementById("animation").textContent = "❌ No donors found nearby.";
+        return;
+      }
+
+      donorMarker = L.marker([nearestDonor.lat, nearestDonor.lng], { icon: donorIcon() }).addTo(map).bindPopup("Nearest Donor");
+
+      // Fetch hospitals near receiver and donor
+      const receiverHospitals = await fetchHospitals(receiverLat, receiverLng);
+      const donorHospitals = await fetchHospitals(nearestDonor.lat, nearestDonor.lng);
+
+      // Show hospital markers
+      receiverHospitals.forEach(hospital => {
+        L.marker([hospital.lat, hospital.lon], {
+          icon: hospitalIcon()
+        }).addTo(map).bindPopup(hospital.tags?.name || "Hospital (near receiver)");
+      });
+
+      donorHospitals.forEach(hospital => {
+        L.marker([hospital.lat, hospital.lon], {
+          icon: hospitalIcon()
+        }).addTo(map).bindPopup(hospital.tags?.name || "Hospital (near donor)");
+      });
+
+      // Get closest hospital to receiver and donor for routing
+      const closestHospitalToReceiver = closestHospital(receiverLat, receiverLng, receiverHospitals);
+      const closestHospitalToDonor = closestHospital(nearestDonor.lat, nearestDonor.lng, donorHospitals);
+
+      // Remove old routing if present
+      if (routingReceiverToHospital) map.removeControl(routingReceiverToHospital);
+      if (routingDonorToHospital) map.removeControl(routingDonorToHospital);
+
+      // Add routing Receiver -> Hospital
+      routingReceiverToHospital = L.Routing.control({
+        waypoints: [
+          L.latLng(receiverLat, receiverLng),
+          L.latLng(closestHospitalToReceiver.lat, closestHospitalToReceiver.lon)
+        ],
+        lineOptions: { styles: [{ color: 'blue', weight: 4 }] },
+        routeWhileDragging: false,
+      }).addTo(map);
+
+      // Add routing Donor -> Hospital
+      routingDonorToHospital = L.Routing.control({
+        waypoints: [
+          L.latLng(nearestDonor.lat, nearestDonor.lng),
+          L.latLng(closestHospitalToDonor.lat, closestHospitalToDonor.lon)
+        ],
+        lineOptions: { styles: [{ color: 'red', weight: 4 }] },
+        routeWhileDragging: false,
+      }).addTo(map);
+
+      document.getElementById("animation").textContent = "✅ Donor and nearby hospitals shown!";
+    }
+
+    async function fetchHospitals(lat, lng) {
+      const radius = 5000; // 5 km radius
+      const query = `[out:json];node["amenity"="hospital"](around:${radius},${lat},${lng});out;`;
+      const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.elements || [];
+      } catch (error) {
+        console.error("Error fetching hospitals:", error);
+        return [];
+      }
+    }
+
+    function closestHospital(lat, lng, hospitals) {
+      if (hospitals.length === 0) {
+        return { lat, lon: lng }; // fallback to current location
+      }
+      let minDist = Infinity;
+      let closest = hospitals[0];
+      hospitals.forEach(hospital => {
+        const dist = getDistance(lat, lng, hospital.lat, hospital.lon);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = hospital;
+        }
+      });
+      return closest;
+    }
+
+    function updateRoutes(newReceiverLat, newReceiverLng) {
+      if (!routingReceiverToHospital || !routingDonorToHospital) return;
+      // Update receiver to hospital route
+      const receiverHospitalWaypoint = routingReceiverToHospital.getWaypoints()[1].latLng;
+      routingReceiverToHospital.setWaypoints([
+        L.latLng(newReceiverLat, newReceiverLng),
+        receiverHospitalWaypoint
+      ]);
+
+      // Donor location is static, no update here
+    }
+
+    function getDistance(lat1, lng1, lat2, lng2) {
+      const R = 6371; // km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLng = (lng2 - lng1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng/2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function receiverIcon() {
+      return new L.Icon({ iconUrl: "https://cdn-icons-png.flaticon.com/512/330/330099.png", iconSize: [30, 30] });
+    }
+
+    function donorIcon() {
+      return new L.Icon({ iconUrl: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png", iconSize: [30, 30] });
+    }
+
+    function hospitalIcon() {
+      return L.divIcon({
+        className: 'hospital-icon',
+        html: '🏥',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30]
+      });
+    }
+  </script>
+</body>
+</html>
+
